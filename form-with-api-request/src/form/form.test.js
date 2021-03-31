@@ -17,14 +17,19 @@ describe('when the form is mounted', () => {
 
   // test form fields
   it('should exists the fields: name, size, type (electronic, furniture, clothing)', () => {
-    // getByLabelText is used to get elements by label (forms)
+    // getByLabelText is used to get elements by label (form inputs)
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/size/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/type/i)).toBeInTheDocument()
 
-    // queryByText is used to get elements by text
+    // queryByText is used to get elements by text (select options)
     expect(screen.queryByText(/electronic/i)).toBeInTheDocument()
     expect(screen.queryByText(/furniture/i)).toBeInTheDocument()
     expect(screen.queryByText(/clothing/i)).toBeInTheDocument()
+  })
+
+  // test form submit button
+  it('should exists the submit button', () => {
+    expect(screen.getByRole('button', {name: /submit/i})).toBeInTheDocument()
   })
 })
