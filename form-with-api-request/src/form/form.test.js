@@ -8,7 +8,7 @@ describe('when the form is mounted', () => {
   it('there must be a create product form page', () => {
     render(<Form />)
 
-    // getByRole guarantees that the selected element is a heading
+    // getByRole with name option guarantees that you can filter the returned elements by their accessible name
     expect(
       screen.getByRole('heading', {name: /create product/i}),
     ).toBeInTheDocument()
