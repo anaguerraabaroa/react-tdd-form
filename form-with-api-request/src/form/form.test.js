@@ -3,10 +3,10 @@ import {screen, render, fireEvent} from '@testing-library/react'
 
 import {Form} from './form'
 
-describe('when the form is mounted', () => {
-  // beforeEach to render the component before each test
-  beforeEach(() => render(<Form />))
+// beforeEach is used in global scope to render the component before each test
+beforeEach(() => render(<Form />))
 
+describe('when the form is mounted', () => {
   // test form page
   it('there must be a create product form page', () => {
     // getByRole with name option is used to get elements by their accessible name
@@ -34,12 +34,10 @@ describe('when the form is mounted', () => {
   })
 })
 
-// test form validation messages
 describe('when the user submits the form without values', () => {
+  // test form validation messages
   it('should display validation messages', () => {
-    render(<Form />)
-
-    // before the event the element should not be in the document
+    // before the event elements should not be in the document
     expect(screen.queryByText(/the name is required/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/the size is required/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/the type is required/i)).not.toBeInTheDocument()
@@ -47,9 +45,38 @@ describe('when the user submits the form without values', () => {
     // event
     fireEvent.click(screen.getByRole('button', {name: /submit/i}))
 
-    // after the event the element should be in the document
+    // after the event elements should be in the document
     expect(screen.queryByText(/the name is required/i)).toBeInTheDocument()
     expect(screen.queryByText(/the size is required/i)).toBeInTheDocument()
     expect(screen.queryByText(/the type is required/i)).toBeInTheDocument()
+  })
+})
+
+describe('when the user blurs an empty field', () => {
+  it('should display a validation error message for the input name', () => {
+    // before the event the element should not be in the document
+    expect(screen.queryByText(/the name is required/i)).not.toBeInTheDocument()
+
+    // event receives two values: element + event target
+    // and event target receives two values: input name + input value
+    fireEvent.blur(screen.getByLabelText(/name/i), {
+      target: {name: 'name', value: ''},
+    })
+
+    // after the event the element should be in the document
+    expect(screen.queryByText(/the name is required/i)).toBeInTheDocument()
+  })
+
+  it('should display a validation error message for the size name', () => {
+    // before the event the element should not be in the document
+    expect(screen.queryByText(/the size is required/i)).not.toBeInTheDocument()
+
+    //event
+    fireEvent.blur(screen.getByLabelText(/name/i), {
+      target: {name: 'size', value: ''},
+    })
+
+    // after the event the element should be in the document
+    expect(screen.queryByText(/the size is required/i)).toBeInTheDocument()
   })
 })

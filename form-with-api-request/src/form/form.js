@@ -31,6 +31,18 @@ export const Form = () => {
     }
   }
 
+  // blur event handler
+  const handleBlur = e => {
+    // access to TextField component inputs by name destructuring
+    const {name, value} = e.target
+
+    // set error messages
+    setFormErrors({
+      ...formErrors,
+      [name]: value.length ? '' : `The ${name} is required`,
+    })
+  }
+
   return (
     <>
       <h1>Create product</h1>
@@ -38,9 +50,21 @@ export const Form = () => {
       <form onSubmit={handleSubmit}>
         {/* Material UI requires to add id to TextField component since 
     it returns labels+inputs that must be related through the id */}
-        <TextField label="name" id="name" helperText={formErrors.name} />
+        <TextField
+          label="name"
+          id="name"
+          name="name"
+          helperText={formErrors.name}
+          onBlur={handleBlur}
+        />
 
-        <TextField label="size" id="size" helperText={formErrors.size} />
+        <TextField
+          label="size"
+          id="size"
+          name="size"
+          helperText={formErrors.size}
+          onBlur={handleBlur}
+        />
 
         <InputLabel htmlFor="type">type</InputLabel>
 
