@@ -1,38 +1,69 @@
-import React from 'react'
+import {useState} from 'react'
 import TextField from '@material-ui/core/TextField'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
 
-export const Form = () => (
-  <>
-    <h1>Create product</h1>
-    {/* Material UI requires to add id to TextField since 
-    it returns labels and inputs that must be related */}
-    <form>
-      <TextField label="name" id="name" />
+export const Form = () => {
+  // state
+  const [formErrors, setFormErrors] = useState({
+    name: '',
+    size: '',
+    type: '',
+  })
 
-      <TextField label="size" id="size" />
+  // submit event handler
+  const handleSubmit = e => {
+    e.preventDefault()
 
-      <InputLabel htmlFor="type">type</InputLabel>
+    // access to TextField component inputs by id destructuring
+    const {name, size, type} = e.target.elements
 
-      <Select
-        native
-        value=""
-        inputProps={{
-          name: 'type',
-          id: 'type',
-        }}
-      >
-        <option aria-label="None" value="" />
-        <option value={'electronic'}>Electronic</option>
-        <option value={'furniture'}>Furniture</option>
-        <option value={'clothing'}>Clothing</option>
-      </Select>
+    // set error messages
+    if (!name.value) {
+      setFormErrors(prevState => ({...prevState, name: 'The name is required'}))
+    }
+    if (!size.value) {
+      setFormErrors(prevState => ({...prevState, size: 'The size is required'}))
+    }
+    if (!type.value) {
+      setFormErrors(prevState => ({...prevState, type: 'The type is required'}))
+    }
+  }
 
-      <Button>Submit</Button>
-    </form>
-  </>
-)
+  return (
+    <>
+      <h1>Create product</h1>
+
+      <form onSubmit={handleSubmit}>
+        {/* Material UI requires to add id to TextField component since 
+    it returns labels+inputs that must be related through the id */}
+        <TextField label="name" id="name" helperText={formErrors.name} />
+
+        <TextField label="size" id="size" helperText={formErrors.size} />
+
+        <InputLabel htmlFor="type">type</InputLabel>
+
+        <Select
+          native
+          value=""
+          inputProps={{
+            name: 'type',
+            id: 'type',
+          }}
+        >
+          <option aria-label="None" value="" />
+          <option value={'electronic'}>Electronic</option>
+          <option value={'furniture'}>Furniture</option>
+          <option value={'clothing'}>Clothing</option>
+        </Select>
+
+        {formErrors.type.length && <p>{formErrors.type}</p>}
+
+        <Button type="submit">Submit</Button>
+      </form>
+    </>
+  )
+}
 
 export default Form
