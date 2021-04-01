@@ -4,10 +4,19 @@ import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 
 import {Form} from './form'
+import {CREATED_STATUS, ERROR_SERVER_STATUS} from '../const/htttpStatus'
 
 // create mock server
 const server = setupServer(
-  rest.post('/products', (req, res, ctx) => res(ctx.status(201))),
+  rest.post('/products', (req, res, ctx) => {
+    // send server form data
+    const {name, size, type} = req.body
+
+    if (name && size && type) {
+      return res(ctx.status(CREATED_STATUS))
+    }
+    return res(ctx.status(ERROR_SERVER_STATUS))
+  }),
 )
 
 // start mock server
@@ -114,7 +123,27 @@ describe('when the user submits the form', () => {
     // after the event the button should be disable
     expect(submitBtn).toBeDisabled()
 
-    // waitFor returns a Promise when it runs as a function
     await waitFor(() => expect(submitBtn).not.toBeDisabled())
+  })
+
+  // test success message
+  it('the form page must display the success message "Product stored" and clean the fields values', async () => {
+    // change event
+    fireEvent.change(screen.getByLabelText(/name/i), {
+      target: {name: 'name', value: 'my product'},
+    })
+    fireEvent.change(screen.getByLabelText(/size/i), {
+      target: {name: 'name', value: '10'},
+    })
+    fireEvent.change(screen.getByLabelText(/type/i), {
+      target: {name: 'name', value: 'electronic'},
+    })
+
+    // click event
+    fireEvent.click(screen.getByRole('button', {name: /submit/i}))
+
+    await waitFor(() =>
+      expect(screen.getByText(/product stored/i)).toBeInTheDocument(),
+    )
   })
 })

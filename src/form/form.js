@@ -5,6 +5,7 @@ import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
 
 import {saveProduct} from '../services/productServices'
+import {CREATED_STATUS} from '../const/htttpStatus'
 
 export const Form = () => {
   // form error messages state
@@ -13,9 +14,11 @@ export const Form = () => {
     size: '',
     type: '',
   })
-
   // form submit button state
   const [isSaving, setIsSaving] = useState(false)
+
+  // server success message
+  const [isSuccess, setIsSuccess] = useState(false)
 
   // set validation error messages by field name
   const validateField = ({name, value}) => {
@@ -32,6 +35,13 @@ export const Form = () => {
     validateField({name: 'type', value: type})
   }
 
+  // get form values
+  const getFormValues = ({name, size, type}) => ({
+    name: name.value,
+    size: size.value,
+    type: type.value,
+  })
+
   // submit button event handler
   const handleSubmit = async e => {
     e.preventDefault()
@@ -43,10 +53,15 @@ export const Form = () => {
     const {name, size, type} = e.target.elements
 
     // run form validation error messages function
-    validateForm({name: name.value, size: size.value, type: type.value})
+    validateForm(getFormValues({name, size, type}))
 
     // run fetch
-    await saveProduct()
+    const response = await saveProduct(getFormValues({name, size, type}))
+
+    // set server success message
+    if (response.status === CREATED_STATUS) {
+      setIsSuccess(true)
+    }
 
     // update submit button state
     setIsSaving(false)
@@ -64,6 +79,8 @@ export const Form = () => {
   return (
     <>
       <h1>Create product</h1>
+
+      {isSuccess && <p>Product Stored</p>}
 
       <form onSubmit={handleSubmit}>
         {/* Material UI requires to add id to TextField component since 
@@ -88,7 +105,6 @@ export const Form = () => {
 
         <Select
           native
-          value=""
           inputProps={{
             name: 'type',
             id: 'type',
