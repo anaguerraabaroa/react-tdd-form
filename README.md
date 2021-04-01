@@ -1,3 +1,5 @@
+[Form](./src/images/form.png)
+
 # **TDD Form with an API Request**
 
 This form has been developed applying Test Driven Development with
@@ -103,6 +105,8 @@ TDD Form with an API Request
 │   ├── form
 │   │    ├── Form.js
 │   │    └── Form.test.js
+│   ├── images
+│   │    └── form.png
 │   ├── services
 │   │    └── productServices.js
 │   ├── App
