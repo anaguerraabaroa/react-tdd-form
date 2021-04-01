@@ -10,10 +10,9 @@ import {
   INVALID_REQUEST_STATUS,
 } from '../const/htttpStatus'
 
-// create mock server
+// create mock server and send form data to get server responses
 const server = setupServer(
   rest.post('/products', (req, res, ctx) => {
-    // send server form data
     const {name, size, type} = req.body
 
     if (name && size && type) {

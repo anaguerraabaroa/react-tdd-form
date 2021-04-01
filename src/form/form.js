@@ -3,6 +3,10 @@ import TextField from '@material-ui/core/TextField'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
+import Container from '@material-ui/core/Container'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 
 import {saveProduct} from '../services/productServices'
 import {
@@ -113,54 +117,74 @@ export const Form = () => {
   }
 
   return (
-    <>
-      <h1>Create product</h1>
+    <Container maxWidth="xs">
+      <CssBaseline />
+
+      <Typography component="h1" variant="h5" align="center">
+        Create product
+      </Typography>
 
       {isSuccess && <p>Product Stored</p>}
 
       <p>{errorMessage}</p>
 
       <form onSubmit={handleSubmit}>
-        {/* Material UI requires to add id to TextField component since 
+        <Grid container spacing={4}>
+          {/* Material UI requires to add id to TextField component since 
     it returns labels+inputs that must be related through the id */}
-        <TextField
-          label="name"
-          id="name"
-          name="name"
-          helperText={formErrors.name}
-          onBlur={handleBlur}
-        />
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="name"
+              id="name"
+              name="name"
+              helperText={formErrors.name}
+              onBlur={handleBlur}
+              error={!!formErrors.name.length}
+            />
+          </Grid>
 
-        <TextField
-          label="size"
-          id="size"
-          name="size"
-          helperText={formErrors.size}
-          onBlur={handleBlur}
-        />
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="size"
+              id="size"
+              name="size"
+              helperText={formErrors.size}
+              onBlur={handleBlur}
+              error={!!formErrors.size.length}
+            />
+          </Grid>
 
-        <InputLabel htmlFor="type">type</InputLabel>
+          <Grid item xs={12}>
+            <InputLabel htmlFor="type" error={!!formErrors.type.length}>
+              type
+            </InputLabel>
+            <Select
+              fullWidth
+              native
+              error={!!formErrors.type.length}
+              inputProps={{
+                name: 'type',
+                id: 'type',
+              }}
+            >
+              <option aria-label="None" value="" />
+              <option value={'electronic'}>Electronic</option>
+              <option value={'furniture'}>Furniture</option>
+              <option value={'clothing'}>Clothing</option>
+            </Select>
+            {!!formErrors.type && <p>{formErrors.type}</p>}
+          </Grid>
 
-        <Select
-          native
-          inputProps={{
-            name: 'type',
-            id: 'type',
-          }}
-        >
-          <option aria-label="None" value="" />
-          <option value={'electronic'}>Electronic</option>
-          <option value={'furniture'}>Furniture</option>
-          <option value={'clothing'}>Clothing</option>
-        </Select>
-
-        {formErrors.type.length && <p>{formErrors.type}</p>}
-
-        <Button type="submit" disabled={isSaving}>
-          Submit
-        </Button>
+          <Grid item xs={12}>
+            <Button fullWidth type="submit" disabled={isSaving}>
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
       </form>
-    </>
+    </Container>
   )
 }
 

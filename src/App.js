@@ -1,7 +1,9 @@
 import React from 'react'
 
+import {Form} from './form/form'
+
 function App() {
-  return <div></div>
+  return <Form />
 }
 
 export default App
