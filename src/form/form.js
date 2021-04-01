@@ -28,10 +28,10 @@ export const Form = () => {
   // server success message
   const [isSuccess, setIsSuccess] = useState(false)
 
-  // server error message
+  // server error messages
   const [errorMessage, setErrorMessage] = useState('')
 
-  // set validation error messages by field name
+  // set validation error messages by field name state
   const validateField = ({name, value}) => {
     setFormErrors(prevState => ({
       ...prevState,
@@ -55,18 +55,19 @@ export const Form = () => {
 
   // handle fetch errors
   const handleFetchErrors = async err => {
-    // set server error message
+    // set server error message state
     if (err.status === ERROR_SERVER_STATUS) {
       setErrorMessage('Unexpected error, please try again')
       return
     }
 
-    // set server invalid request message
+    // set server invalid request message state
     if (err.status === INVALID_REQUEST_STATUS) {
       const data = await err.json()
       setErrorMessage(data.message)
       return
     }
+    // set not found service message state
     setErrorMessage('Connection error, please try later')
   }
 
@@ -88,17 +89,17 @@ export const Form = () => {
       // run fetch
       const response = await saveProduct(getFormValues({name, size, type}))
 
-      // validate fetch response to throw success or error
+      // validate fetch response to throw success or error messages
       if (!response.ok) {
         throw response
       }
 
-      // reset fields values and set server success message
+      // reset fields values and set server success message state
       if (response.status === CREATED_STATUS) {
         e.target.reset()
         setIsSuccess(true)
       }
-      // run handleFetchErrors
+      // run handleFetchErrors function
     } catch (err) {
       handleFetchErrors(err)
     }

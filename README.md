@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# **TDD Form with an API Request**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This form has been developed applying Test Driven Development with
+[<img src = "https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=black">](https://es.reactjs.org/),
+[<img src = "https://img.shields.io/badge/-Jest-C21325?style=flat&logo=jest&logoColor=white">](https://jestjs.io/),
+[<img src = "https://img.shields.io/badge/-Testing_Library-E33332?style=flat&logo=testing-library&logoColor=white">](https://testing-library.com/),
+[<img src = "https://img.shields.io/badge/-Mock_Service_Worker-E95420">](https://mswjs.io/)
+and
+[<img src = "https://img.shields.io/badge/-Material_UI-0081CB?style=flat&logo=material-ui&logoColor=white">](https://material-ui.com/)
 
-## Available Scripts
+This exercise is part of the
+[**Test Driven Development (TDD) en React JS**](https://www.udemy.com/course/tdd-react-js/?referralCode=F40803D2C4D2934AB038)
+course.
 
-In the project directory, you can run:
+## **Quick start guide**
 
-### `npm start`
+Instructions to start this project:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### **Pre-requirements**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+This project runs with
+[<img src = "https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=black">](https://es.reactjs.org/).
+Start guide [**here**](https://github.com/facebook/create-react-app).
 
-### `npm test`
+### **Installation**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Once React has been installed:
 
-### `npm run build`
+1. Clone repository
+2. Open a terminal
+3. Run `npm install` on the terminal to install local dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### **Run project**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Run `npm start` on the terminal:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Open the project on the browser using a local server.
+2. Refresh browser everytime files contained in `/src` folder are updated.
+3. Compiled files contained in `/src` folder and copy them in `/public` folder
+   in order to be prepared for production environment.
 
-### `npm run eject`
+### **Updating**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Run these commands to update changes on the project:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+git add -A
+git commit -m "Message commit"
+git push
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. Run `npm run build` to create `/docs` folder and the production environment
+   version.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. Run again commands on step 1 to update changes on the project.
 
-## Learn More
+4. Project **[URL]()** is also available on GitHub Pages.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## **Project features**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Store product**
 
-### Code Splitting
+As a merchandise manager, I want to store new products as a way of
+administrating my products.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Acceptance Criteria**
 
-### Analyzing the Bundle Size
+- There must be a create product form page.
+- The form must have the following fields: name, size, type (electronic,
+  furniture, clothing) and a submit button.
+- All the fields are required.
+  - If the user leaves empty fields and clicks the submit button, the form page
+    must display required messages as the format: _“The [field name] is
+    required”_ aside of the proper field.
+  - If the user blurs a field that is empty, then the form must display the
+    required message for that field.
+- The form must send the data to a backend endpoint service.
+  - The submit button should be disabbled while the form page is fetching the
+    data. After fetching, the submit button does not have to be disabled.
+  - In the success path, the form page must display the success message
+    _“Product stored”_ and clean the fields values.
+  - In a server error, the form page must display the error message _“Unexpected
+    error, please try again”_.
+  - In the invalid request path, the form page must display the error message
+    _“The form is invalid, the fields [field1...fieldN] are required”_.
+  - In the not found service path, the form page must display the message
+    _“Connection error, please try later”_.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## **Folder Structure**
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+TDD Form with an API Request
+├── docs
+├── node_modules
+├── public
+├── src
+│   ├── const
+│   │   └── httpStatus.js
+│   ├── form
+│   │    ├── Form.js
+│   │    └── Form.test.js
+│   ├── services
+│   │    └── productServices.js
+│   ├── App
+│   │── index.js
+│   ├── reportWebVitals.js
+│   └── setupTests.js
+|── .eslintrc
+├── .gitignore
+├── .prettierrc
+├── package-lock.json
+├── package.json
+└── README.md
+```

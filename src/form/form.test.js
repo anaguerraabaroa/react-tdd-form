@@ -3,14 +3,14 @@ import {screen, render, fireEvent, waitFor} from '@testing-library/react'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 
-import {Form} from './form'
+import {Form} from './Form'
 import {
   CREATED_STATUS,
   ERROR_SERVER_STATUS,
   INVALID_REQUEST_STATUS,
 } from '../const/htttpStatus'
 
-// create mock server and send form data to get server responses
+// create mock server and send form fields data to get server responses
 const server = setupServer(
   rest.post('/products', (req, res, ctx) => {
     const {name, size, type} = req.body
