@@ -2,6 +2,7 @@
   "name": "form-with-api-request",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@testing-library/jest-dom": "^5.11.10",
@@ -22,7 +23,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ignore-path .gitignore .",
-    "format": "prettier --ignore-path .gitignore --write\"**/*.+(js)\""
+    "format": "prettier --ignore-path .gitignore --write\"**/*.+(js)\"",
+    "docs": "rm -rf docs && react-scripts build && mv build docs"
   },
   "eslintConfig": {
     "extends": [
