@@ -12,6 +12,9 @@ This exercise is part of the
 [**Test Driven Development (TDD) en React JS**](https://www.udemy.com/course/tdd-react-js/?referralCode=F40803D2C4D2934AB038)
 course.
 
+**NOTE:** a mock server with a fake API request has been used to develop this
+exercise.
+
 ## **Quick start guide**
 
 Instructions to start this project:
