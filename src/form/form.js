@@ -4,6 +4,8 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
 
+import {saveProduct} from '../services/productServices'
+
 export const Form = () => {
   // form error messages state
   const [formErrors, setFormErrors] = useState({
@@ -43,11 +45,8 @@ export const Form = () => {
     // run form validation error messages function
     validateForm({name: name.value, size: size.value, type: type.value})
 
-    // async fetch
-    await fetch('/products', {
-      method: 'POST',
-      body: JSON.stringify({}),
-    })
+    // run fetch
+    await saveProduct()
 
     // update submit button state
     setIsSaving(false)
