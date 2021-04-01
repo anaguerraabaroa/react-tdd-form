@@ -5,42 +5,61 @@ import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
 
 export const Form = () => {
-  // state
+  // form error messages state
   const [formErrors, setFormErrors] = useState({
     name: '',
     size: '',
     type: '',
   })
 
-  // submit event handler
-  const handleSubmit = e => {
+  // form submit button state
+  const [isSaving, setIsSaving] = useState(false)
+
+  // set error validation messages by field name
+  const validateField = ({name, value}) => {
+    setFormErrors(prevState => ({
+      ...prevState,
+      [name]: value.length ? '' : `The ${name} is required`,
+    }))
+  }
+
+  // run field error validation messages function
+  const validateForm = ({name, size, type}) => {
+    validateField({name: 'name', value: name})
+    validateField({name: 'size', value: size})
+    validateField({name: 'type', value: type})
+  }
+
+  // submit button event handler
+  const handleSubmit = async e => {
     e.preventDefault()
+
+    // set submit button state
+    setIsSaving(true)
 
     // access to TextField component inputs by id destructuring
     const {name, size, type} = e.target.elements
 
-    // set error messages
-    if (!name.value) {
-      setFormErrors(prevState => ({...prevState, name: 'The name is required'}))
-    }
-    if (!size.value) {
-      setFormErrors(prevState => ({...prevState, size: 'The size is required'}))
-    }
-    if (!type.value) {
-      setFormErrors(prevState => ({...prevState, type: 'The type is required'}))
-    }
+    // run form error validation messages function
+    validateForm({name: name.value, size: size.value, type: type.value})
+
+    // async fetch
+    await fetch('/products', {
+      method: 'POST',
+      body: JSON.stringify({}),
+    })
+
+    // update submit button state
+    setIsSaving(false)
   }
 
-  // blur event handler
+  // input blur event handler
   const handleBlur = e => {
     // access to TextField component inputs by name destructuring
     const {name, value} = e.target
 
-    // set error messages
-    setFormErrors({
-      ...formErrors,
-      [name]: value.length ? '' : `The ${name} is required`,
-    })
+    // run validation messages by field function
+    validateField({name, value})
   }
 
   return (
@@ -84,7 +103,9 @@ export const Form = () => {
 
         {formErrors.type.length && <p>{formErrors.type}</p>}
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isSaving}>
+          Submit
+        </Button>
       </form>
     </>
   )

@@ -1,7 +1,20 @@
 import React from 'react'
-import {screen, render, fireEvent} from '@testing-library/react'
+import {screen, render, fireEvent, waitFor} from '@testing-library/react'
+import {rest} from 'msw'
+import {setupServer} from 'msw/node'
 
 import {Form} from './form'
+
+// create mock server
+const server = setupServer(
+  rest.post('/products', (req, res, ctx) => res(ctx.status(201))),
+)
+
+// start mock server
+beforeAll(() => server.listen())
+
+// close mock server
+afterAll(() => server.close())
 
 // beforeEach is used in global scope to render the component before each test
 beforeEach(() => render(<Form />))
@@ -36,7 +49,7 @@ describe('when the form is mounted', () => {
 
 describe('when the user submits the form without values', () => {
   // test form validation messages
-  it('should display validation messages', () => {
+  it('should display validation messages', async () => {
     // before the event elements should not be in the document
     expect(screen.queryByText(/the name is required/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/the size is required/i)).not.toBeInTheDocument()
@@ -49,6 +62,11 @@ describe('when the user submits the form without values', () => {
     expect(screen.queryByText(/the name is required/i)).toBeInTheDocument()
     expect(screen.queryByText(/the size is required/i)).toBeInTheDocument()
     expect(screen.queryByText(/the type is required/i)).toBeInTheDocument()
+
+    // waitFor returns a Promise when it runs as a function
+    await waitFor(() =>
+      expect(screen.getByRole('button', {name: /submit/i})).not.toBeDisabled(),
+    )
   })
 })
 
@@ -78,5 +96,23 @@ describe('when the user blurs an empty field', () => {
 
     // after the event the element should be in the document
     expect(screen.queryByText(/the size is required/i)).toBeInTheDocument()
+  })
+})
+
+describe('when the user submits the form', () => {
+  // test form disabled submit button
+  it('should the submit button be disabled until the request is done', async () => {
+    // before the event the button should be enabled
+    const submitBtn = screen.getByRole('button', {name: /submit/i})
+    expect(submitBtn).not.toBeDisabled()
+
+    // event
+    fireEvent.click(submitBtn)
+
+    // after the event the button should be disable
+    expect(submitBtn).toBeDisabled()
+
+    // waitFor returns a Promise when it runs as a function
+    await waitFor(() => expect(submitBtn).not.toBeDisabled())
   })
 })
