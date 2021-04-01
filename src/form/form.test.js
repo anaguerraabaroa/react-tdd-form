@@ -48,7 +48,7 @@ describe('when the form is mounted', () => {
 })
 
 describe('when the user submits the form without values', () => {
-  // test form validation messages
+  // test form validation error messages
   it('should display validation messages', async () => {
     // before the event elements should not be in the document
     expect(screen.queryByText(/the name is required/i)).not.toBeInTheDocument()
@@ -71,6 +71,7 @@ describe('when the user submits the form without values', () => {
 })
 
 describe('when the user blurs an empty field', () => {
+  // test name field error message on blur
   it('should display a validation error message for the input name', () => {
     // before the event the element should not be in the document
     expect(screen.queryByText(/the name is required/i)).not.toBeInTheDocument()
@@ -85,6 +86,7 @@ describe('when the user blurs an empty field', () => {
     expect(screen.queryByText(/the name is required/i)).toBeInTheDocument()
   })
 
+  // test size field error message on blur
   it('should display a validation error message for the size name', () => {
     // before the event the element should not be in the document
     expect(screen.queryByText(/the size is required/i)).not.toBeInTheDocument()

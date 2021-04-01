@@ -15,7 +15,7 @@ export const Form = () => {
   // form submit button state
   const [isSaving, setIsSaving] = useState(false)
 
-  // set error validation messages by field name
+  // set validation error messages by field name
   const validateField = ({name, value}) => {
     setFormErrors(prevState => ({
       ...prevState,
@@ -23,7 +23,7 @@ export const Form = () => {
     }))
   }
 
-  // run field error validation messages function
+  // run validation error messages by field name function
   const validateForm = ({name, size, type}) => {
     validateField({name: 'name', value: name})
     validateField({name: 'size', value: size})
@@ -40,7 +40,7 @@ export const Form = () => {
     // access to TextField component inputs by id destructuring
     const {name, size, type} = e.target.elements
 
-    // run form error validation messages function
+    // run form validation error messages function
     validateForm({name: name.value, size: size.value, type: type.value})
 
     // async fetch
@@ -58,7 +58,7 @@ export const Form = () => {
     // access to TextField component inputs by name destructuring
     const {name, value} = e.target
 
-    // run validation messages by field function
+    // run validation error messages by field function
     validateField({name, value})
   }
 
