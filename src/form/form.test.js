@@ -4,7 +4,11 @@ import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 
 import {Form} from './form'
-import {CREATED_STATUS, ERROR_SERVER_STATUS} from '../const/htttpStatus'
+import {
+  CREATED_STATUS,
+  ERROR_SERVER_STATUS,
+  INVALID_REQUEST_STATUS,
+} from '../const/htttpStatus'
 
 // create mock server
 const server = setupServer(
@@ -27,6 +31,9 @@ afterAll(() => server.close())
 
 // beforeEach is used in global scope to render the component before each test
 beforeEach(() => render(<Form />))
+
+// reset any runtime request handlers added during the tests (custom server response)
+afterEach(() => server.resetHandlers())
 
 describe('when the form is mounted', () => {
   // test form page
@@ -170,6 +177,58 @@ describe('when submits the form and the server returns an unexpected error', () 
     await waitFor(() =>
       expect(
         screen.getByText(/unexpected error, please try again/i),
+      ).toBeInTheDocument(),
+    )
+  })
+})
+
+describe('when submits the form and the server returns an invalid request error', () => {
+  // test server invalid request message
+  it('the form page must display the error message "The form is invalid, the fields name, size, type are required"', async () => {
+    // custom server response just for this test
+    server.use(
+      rest.post('/products', (req, res, ctx) => {
+        return res(
+          ctx.status(INVALID_REQUEST_STATUS),
+          ctx.json({
+            message:
+              'The form is invalid, the fields name, size, type are required',
+          }),
+        )
+      }),
+    )
+
+    // event
+    fireEvent.click(screen.getByRole('button', {name: /submit/i}))
+
+    // wait for the invalid request server response to run the test
+    await waitFor(() =>
+      expect(
+        screen.getByText(
+          /the form is invalid, the fields name, size, type are required/i,
+        ),
+      ).toBeInTheDocument(),
+    )
+  })
+})
+
+describe('when submits the form and the server returns a not found service error', () => {
+  // test not found service
+  it('the form page must display the message "Connection error, please try later"', async () => {
+    // server response
+    server.use(
+      rest.post('/products', (req, res) =>
+        res.networkError('Failed to connect'),
+      ),
+    )
+
+    // event
+    fireEvent.click(screen.getByRole('button', {name: /submit/i}))
+
+    // wait for the invalid request server response to run the test
+    await waitFor(() =>
+      expect(
+        screen.getByText(/connection error, please try later/i),
       ).toBeInTheDocument(),
     )
   })

@@ -5,7 +5,11 @@ import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
 
 import {saveProduct} from '../services/productServices'
-import {CREATED_STATUS, ERROR_SERVER_STATUS} from '../const/htttpStatus'
+import {
+  CREATED_STATUS,
+  ERROR_SERVER_STATUS,
+  INVALID_REQUEST_STATUS,
+} from '../const/htttpStatus'
 
 export const Form = () => {
   // form error messages state
@@ -45,6 +49,23 @@ export const Form = () => {
     type: type.value,
   })
 
+  // handle fetch errors
+  const handleFetchErrors = async err => {
+    // set server error message
+    if (err.status === ERROR_SERVER_STATUS) {
+      setErrorMessage('Unexpected error, please try again')
+      return
+    }
+
+    // set server invalid request message
+    if (err.status === INVALID_REQUEST_STATUS) {
+      const data = await err.json()
+      setErrorMessage(data.message)
+      return
+    }
+    setErrorMessage('Connection error, please try later')
+  }
+
   // submit button event handler
   const handleSubmit = async e => {
     e.preventDefault()
@@ -58,18 +79,26 @@ export const Form = () => {
     // run form validation error messages function
     validateForm(getFormValues({name, size, type}))
 
-    // run fetch
-    const response = await saveProduct(getFormValues({name, size, type}))
+    // control server responses
+    try {
+      // run fetch
+      const response = await saveProduct(getFormValues({name, size, type}))
 
-    // reset fields values and set server success message
-    if (response.status === CREATED_STATUS) {
-      e.target.reset()
-      setIsSuccess(true)
+      // validate fetch response to throw success or error
+      if (!response.ok) {
+        throw response
+      }
+
+      // reset fields values and set server success message
+      if (response.status === CREATED_STATUS) {
+        e.target.reset()
+        setIsSuccess(true)
+      }
+      // run handleFetchErrors
+    } catch (err) {
+      handleFetchErrors(err)
     }
 
-    if (response.status === ERROR_SERVER_STATUS) {
-      setErrorMessage('Unexpected error, please try again')
-    }
     // update submit button state
     setIsSaving(false)
   }
