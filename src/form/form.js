@@ -7,6 +7,9 @@ import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormControl from '@material-ui/core/FormControl'
+import Box from '@material-ui/core/Box'
 
 import {saveProduct} from '../services/productServices'
 import {
@@ -121,70 +124,80 @@ export const Form = () => {
     <Container maxWidth="xs">
       <CssBaseline />
 
-      <Typography component="h1" variant="h5" align="center">
-        Create product
-      </Typography>
+      <Box my={20}>
+        <Typography component="h1" variant="h4" align="center" color="primary">
+          Create product
+        </Typography>
 
-      {isSuccess && <p>Product Stored</p>}
+        {isSuccess && <p>Product Stored</p>}
 
-      <p>{errorMessage}</p>
+        <p>{errorMessage}</p>
 
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={4}>
-          {/* Material UI requires to add id to TextField component since 
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={4}>
+            {/* Material UI requires to add id to TextField component since 
     it returns labels+inputs that must be related through the id */}
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="name"
-              id="name"
-              name="name"
-              helperText={formErrors.name}
-              onBlur={handleBlur}
-              error={!!formErrors.name.length}
-            />
-          </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="name"
+                id="name"
+                name="name"
+                helperText={formErrors.name}
+                onBlur={handleBlur}
+                error={!!formErrors.name.length}
+              />
+            </Grid>
 
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="size"
-              id="size"
-              name="size"
-              helperText={formErrors.size}
-              onBlur={handleBlur}
-              error={!!formErrors.size.length}
-            />
-          </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="size"
+                id="size"
+                name="size"
+                helperText={formErrors.size}
+                onBlur={handleBlur}
+                error={!!formErrors.size.length}
+              />
+            </Grid>
 
-          <Grid item xs={12}>
-            <InputLabel htmlFor="type" error={!!formErrors.type.length}>
-              type
-            </InputLabel>
-            <Select
-              fullWidth
-              native
-              error={!!formErrors.type.length}
-              inputProps={{
-                name: 'type',
-                id: 'type',
-              }}
-            >
-              <option aria-label="None" value="" />
-              <option value={'electronic'}>Electronic</option>
-              <option value={'furniture'}>Furniture</option>
-              <option value={'clothing'}>Clothing</option>
-            </Select>
-            {!!formErrors.type && <p>{formErrors.type}</p>}
-          </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth error={!!formErrors.type.length}>
+                <InputLabel htmlFor="type">type</InputLabel>
+                <Select
+                  fullWidth
+                  native
+                  error={!!formErrors.type.length}
+                  inputProps={{
+                    name: 'type',
+                    id: 'type',
+                  }}
+                >
+                  <option aria-label="None" value="" />
+                  <option value={'electronic'}>Electronic</option>
+                  <option value={'furniture'}>Furniture</option>
+                  <option value={'clothing'}>Clothing</option>
+                </Select>
+                <FormHelperText>
+                  {!!formErrors.type && <p>{formErrors.type}</p>}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
 
-          <Grid item xs={12}>
-            <Button fullWidth type="submit" disabled={isSaving}>
-              Submit
-            </Button>
+            <Grid item xs={12}>
+              <Button
+                fullWidth
+                color="primary"
+                variant="contained"
+                type="submit"
+                disabled={isSaving}
+              >
+                Submit
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
+        </form>
+      </Box>
     </Container>
   )
 }
