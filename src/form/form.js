@@ -129,7 +129,7 @@ export const Form = () => {
         alignItems="center"
         justifyContent="center"
         flexDirection="column"
-        height={400}
+        my={20}
       >
         <Typography component="h1" variant="h4" align="center" color="primary">
           Create product
