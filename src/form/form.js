@@ -124,7 +124,13 @@ export const Form = () => {
     <Container maxWidth="xs">
       <CssBaseline />
 
-      <Box my={20}>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        flexDirection="column"
+        height={400}
+      >
         <Typography component="h1" variant="h4" align="center" color="primary">
           Create product
         </Typography>
