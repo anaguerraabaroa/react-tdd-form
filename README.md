@@ -14,52 +14,39 @@ This exercise is part of the
 [**Test Driven Development (TDD) en React JS**](https://www.udemy.com/course/tdd-react-js/?referralCode=F40803D2C4D2934AB038)
 course.
 
-**NOTE:** a mock server and API rest have been used to develop this exercise.
+**NOTE:** a mock server and an API rest have been used to develop this exercise.
 
 ## **Quick start guide**
 
 Instructions to start this project:
 
-### **Pre-requirements**
+### Installation
 
-This project runs with
-[<img src = "https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=black">](https://es.reactjs.org/).
-Start guide [**here**](https://github.com/facebook/create-react-app).
-
-### **Installation**
-
-Once React has been installed:
-
-1. Clone repository
-2. Open a terminal
-3. Run `npm install` on the terminal to install local dependencies
-
-### **Run project**
-
-Run `npm start` on the terminal:
-
-1. Open the project on the browser using a local server.
-2. Refresh browser everytime files contained in `/src` folder are updated.
-3. Compiled files contained in `/src` folder and copy them in `/public` folder
-   in order to be prepared for production environment.
-
-### **Updating**
-
-1. Run these commands to update changes on the project:
+- Clone repository:
 
 ```
-git add -A
-git commit -m "Message commit"
-git push
+git clone [repository]
 ```
 
-2. Run `npm run build` to create `/docs` folder and the production environment
-   version.
+- Install NPM packages and dependencies:
 
-3. Run again commands on step 1 to update changes on the project.
+```
+npm install
+```
 
-4. Project **[URL](https://anaguerraabaroa.github.io/react-tdd-form/)** is also
-   available on GitHub Pages.
+- Run project on local server
+
+```
+npm start
+```
+
+### Tests
+
+- Run tests:
+
+```
+npm run test
+```
 
 ## **Project features**
 
@@ -94,7 +81,7 @@ administrating my products.
 ## **Folder Structure**
 
 ```
-TDD Form with an API Request
+React TDD Form with an API Request
 ├── docs
 ├── node_modules
 ├── public
@@ -110,7 +97,6 @@ TDD Form with an API Request
 │   │    └── productServices.js
 │   ├── App
 │   │── index.js
-│   ├── reportWebVitals.js
 │   └── setupTests.js
 |── .eslintrc
 ├── .gitignore

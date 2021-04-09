@@ -132,12 +132,12 @@ export const Form = () => {
         my={20}
       >
         <Typography component="h1" variant="h4" align="center" color="primary">
-          Create product
+          <Box m={4}>Create Product</Box>
         </Typography>
 
         {isSuccess && <p>Product Stored</p>}
 
-        <p>{errorMessage}</p>
+        <Typography color="error">{errorMessage}</Typography>
 
         <form onSubmit={handleSubmit}>
           <Grid container spacing={4}>
@@ -152,7 +152,7 @@ export const Form = () => {
                 helperText={formErrors.name}
                 onBlur={handleBlur}
                 error={!!formErrors.name.length}
-              />
+              ></TextField>
             </Grid>
 
             <Grid item xs={12}>
@@ -164,7 +164,7 @@ export const Form = () => {
                 helperText={formErrors.size}
                 onBlur={handleBlur}
                 error={!!formErrors.size.length}
-              />
+              ></TextField>
             </Grid>
 
             <Grid item xs={12}>
