@@ -145,10 +145,10 @@ describe('when the user submits the form properly and the server returns created
       target: {name: 'name', value: 'my product'},
     })
     fireEvent.change(sizeInput, {
-      target: {name: 'name', value: '10'},
+      target: {name: 'size', value: '10'},
     })
     fireEvent.change(typeSelect, {
-      target: {name: 'name', value: 'electronic'},
+      target: {name: 'type', value: 'electronic'},
     })
 
     // click event to send fields values to the server
