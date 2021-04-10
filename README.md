@@ -17,6 +17,8 @@ This form has been developed applying Test Driven Development with
 and
 [<img src = "https://img.shields.io/badge/-Material_UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white">](https://material-ui.com/)
 
+[**Project URL**](https://anaguerraabaroa.github.io/react-tdd-form/) is available on GitHub Pages.
+
 **NOTE:** a [**mock server**](https://mswjs.io/) and an API rest have been used
 to develop this exercise.
 
@@ -43,9 +45,6 @@ npm install
 ```
 npm start
 ```
-
-- [**Project URL**](https://anaguerraabaroa.github.io/react-tdd-form/) is also
-  available on GitHub Pages.
 
 ### Tests
 
