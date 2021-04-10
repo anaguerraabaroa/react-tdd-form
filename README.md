@@ -52,7 +52,7 @@ npm start
 npm run test
 ```
 
-## **Project features**
+## **Features and usage**
 
 **Store product**
 
