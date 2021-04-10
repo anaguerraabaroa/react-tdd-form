@@ -14,7 +14,8 @@ This exercise is part of the
 [**Test Driven Development (TDD) en React JS**](https://www.udemy.com/course/tdd-react-js/?referralCode=F40803D2C4D2934AB038)
 course.
 
-**NOTE:** a [**mock server**](https://mswjs.io/) and an API rest have been used to develop this exercise.
+**NOTE:** a [**mock server**](https://mswjs.io/) and an API rest have been used
+to develop this exercise.
 
 ## **Quick start guide**
 
@@ -40,7 +41,8 @@ npm install
 npm start
 ```
 
-- [**Project URL**](https://anaguerraabaroa.github.io/react-tdd-form/) is also available on GitHub Pages.
+- [**Project URL**](https://anaguerraabaroa.github.io/react-tdd-form/) is also
+  available on GitHub Pages.
 
 ### Tests
 
@@ -103,7 +105,13 @@ React TDD Form with an API Request
 |── .eslintrc
 ├── .gitignore
 ├── .prettierrc
+├── .prettierrc
 ├── package-lock.json
 ├── package.json
 └── README.md
 ```
+
+## **License**
+
+This project is licensed under
+[**MIT License**](https://spdx.org/licenses/MIT.html).
