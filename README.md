@@ -113,5 +113,4 @@ React TDD Form with an API Request
 
 ## **License**
 
-This project is licensed under
-[**MIT License**](https://spdx.org/licenses/MIT.html).
+This project is licensed under [**MIT License**](https://spdx.org/licenses/MIT.html).
