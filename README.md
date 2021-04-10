@@ -275,14 +275,30 @@ describe('when the user submits the form properly and the server returns created
 ## **Folder Structure**
 
 ```
-
-React TDD Form with an API Request ├── docs ├── node_modules ├── public ├── src
-│ ├── const │ │ └── httpStatus.js │ ├── form │ │ ├── Form.js │ │ └──
-Form.test.js │ ├── images │ │ └── form.png │ ├── services │ │ └──
-productServices.js │ ├── App │ │── index.js │ └── setupTests.js |── .eslintrc
-├── .gitignore ├── .prettierrc ├── LICENSE ├── package-lock.json ├──
-package.json └── README.md
-
+React TDD Form with an API Request
+├── docs
+├── node_modules
+├── public
+├── src
+│    ├── const
+│    │   └── httpStatus.js
+│    ├── form
+│    │   ├── Form.js
+│    │   └── Form.test.js
+│    ├── images
+│    │   └── form.png
+│    ├── services
+│    │   └── productServices.js
+│    ├── App
+│    │── index.js
+│    └── setupTests.js
+|── .eslintrc
+├── .gitignore
+├── .prettierrc
+├── LICENSE
+├── package-lock.json
+├── package.json
+└── README.md
 ```
 
 ## **License**
