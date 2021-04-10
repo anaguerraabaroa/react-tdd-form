@@ -61,70 +61,71 @@ administrating my products.
 
 **Acceptance Criteria**
 
-- There must be a create product form page.
-- The form must have the following fields: name, size, type (electronic,
-  furniture, clothing) and a submit button.
+1. There must be a create product form page.
+
+2. The form must have the following fields: name, size, type (electronic,
+   furniture, clothing) and a submit button.
+
+```javascript
+describe('when the form is mounted', () => {
+  it('there must be a create product form page', () => {
+    expect(
+      screen.getByRole('heading', {name: /create product/i}),
+    ).toBeInTheDocument()
+  })
+
+  it('should exists the fields: name, size, type (electronic, furniture, clothing)', () => {
+    expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/size/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/type/i)).toBeInTheDocument()
+
+    expect(screen.queryByText(/electronic/i)).toBeInTheDocument()
+    expect(screen.queryByText(/furniture/i)).toBeInTheDocument()
+    expect(screen.queryByText(/clothing/i)).toBeInTheDocument()
+  })
+
+  it('should exists the submit button', () => {
+    expect(screen.getByRole('button', {name: /submit/i})).toBeInTheDocument()
+  })
+})
+```
+
+3. All the fields are required.
+
+- If the user leaves empty fields and clicks the submit button, the form page
+  must display required messages as the format: _“The [field name] is required”_
+  aside of the proper field.
 
   ```javascript
-  describe('when the form is mounted', () => {
-    it('there must be a create product form page', () => {
+  describe('when the user submits the form without values', () => {
+    it('should display validation messages', async () => {
       expect(
-        screen.getByRole('heading', {name: /create product/i}),
-      ).toBeInTheDocument()
-    })
+        screen.queryByText(/the name is required/i),
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(/the size is required/i),
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(/the type is required/i),
+      ).not.toBeInTheDocument()
 
-    it('should exists the fields: name, size, type (electronic, furniture, clothing)', () => {
-      expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
-      expect(screen.getByLabelText(/size/i)).toBeInTheDocument()
-      expect(screen.getByLabelText(/type/i)).toBeInTheDocument()
+      fireEvent.click(screen.getByRole('button', {name: /submit/i}))
 
-      expect(screen.queryByText(/electronic/i)).toBeInTheDocument()
-      expect(screen.queryByText(/furniture/i)).toBeInTheDocument()
-      expect(screen.queryByText(/clothing/i)).toBeInTheDocument()
-    })
+      expect(screen.queryByText(/the name is required/i)).toBeInTheDocument()
+      expect(screen.queryByText(/the size is required/i)).toBeInTheDocument()
+      expect(screen.queryByText(/the type is required/i)).toBeInTheDocument()
 
-    it('should exists the submit button', () => {
-      expect(screen.getByRole('button', {name: /submit/i})).toBeInTheDocument()
+      await waitFor(() =>
+        expect(
+          screen.getByRole('button', {name: /submit/i}),
+        ).not.toBeDisabled(),
+      )
     })
   })
   ```
 
-- All the fields are required.
-
-  - If the user leaves empty fields and clicks the submit button, the form page
-    must display required messages as the format: _“The [field name] is
-    required”_ aside of the proper field.
-
-    ```javascript
-    describe('when the user submits the form without values', () => {
-      it('should display validation messages', async () => {
-        expect(
-          screen.queryByText(/the name is required/i),
-        ).not.toBeInTheDocument()
-        expect(
-          screen.queryByText(/the size is required/i),
-        ).not.toBeInTheDocument()
-        expect(
-          screen.queryByText(/the type is required/i),
-        ).not.toBeInTheDocument()
-
-        fireEvent.click(screen.getByRole('button', {name: /submit/i}))
-
-        expect(screen.queryByText(/the name is required/i)).toBeInTheDocument()
-        expect(screen.queryByText(/the size is required/i)).toBeInTheDocument()
-        expect(screen.queryByText(/the type is required/i)).toBeInTheDocument()
-
-        await waitFor(() =>
-          expect(
-            screen.getByRole('button', {name: /submit/i}),
-          ).not.toBeDisabled(),
-        )
-      })
-    })
-    ```
-
-  - If the user blurs a field that is empty, then the form must display the
-    required message for that field.
+- If the user blurs a field that is empty, then the form must display the
+  required message for that field.
 
   ```javascript
   describe('when the user blurs an empty field', () => {
@@ -154,11 +155,13 @@ administrating my products.
   })
   ```
 
-- The form must send the data to a backend endpoint service.
-  - The submit button should be disabbled while the form page is fetching the
-    data. After fetching, the submit button does not have to be disabled.
-  - In the success path, the form page must display the success message
-    _“Product stored”_ and clean the fields values.
+4. The form must send the data to a backend endpoint service.
+
+- The submit button should be disabbled while the form page is fetching the
+  data. After fetching, the submit button does not have to be disabled.
+
+- In the success path, the form page must display the success message _“Product
+  stored”_ and clean the fields values.
 
 ```javascript
 describe('when the user submits the form properly and the server returns created status', () => {
