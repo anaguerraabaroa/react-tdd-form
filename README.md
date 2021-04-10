@@ -40,7 +40,7 @@ npm install
 npm start
 ```
 
-- [**Project URL**](https://github.com/anaguerraabaroa/react-tdd-form) is also available on GitHub Pages.
+- [**Project URL**](https://anaguerraabaroa.github.io/react-tdd-form/) is also available on GitHub Pages.
 
 ### Tests
 
