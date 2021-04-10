@@ -105,7 +105,7 @@ React TDD Form with an API Request
 |── .eslintrc
 ├── .gitignore
 ├── .prettierrc
-├── .prettierrc
+├── LICENSE
 ├── package-lock.json
 ├── package.json
 └── README.md
