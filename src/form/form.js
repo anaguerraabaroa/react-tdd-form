@@ -145,6 +145,7 @@ export const Form = () => {
     it returns labels+inputs that must be related through the id */}
             <Grid item xs={12}>
               <TextField
+                fullWidth
                 label="name"
                 id="name"
                 name="name"
