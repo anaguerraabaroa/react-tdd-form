@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {React, useState} from 'react'
 import TextField from '@material-ui/core/TextField'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
@@ -145,14 +145,13 @@ export const Form = () => {
     it returns labels+inputs that must be related through the id */}
             <Grid item xs={12}>
               <TextField
-                fullWidth
                 label="name"
                 id="name"
                 name="name"
                 helperText={formErrors.name}
                 onBlur={handleBlur}
                 error={!!formErrors.name.length}
-              ></TextField>
+              />
             </Grid>
 
             <Grid item xs={12}>
@@ -164,7 +163,7 @@ export const Form = () => {
                 helperText={formErrors.size}
                 onBlur={handleBlur}
                 error={!!formErrors.size.length}
-              ></TextField>
+              />
             </Grid>
 
             <Grid item xs={12}>
@@ -180,9 +179,9 @@ export const Form = () => {
                   }}
                 >
                   <option aria-label="None" value="" />
-                  <option value={'electronic'}>Electronic</option>
-                  <option value={'furniture'}>Furniture</option>
-                  <option value={'clothing'}>Clothing</option>
+                  <option value="electronic">Electronic</option>
+                  <option value="furniture">Furniture</option>
+                  <option value="clothing">Clothing</option>
                 </Select>
                 <FormHelperText>
                   {!!formErrors.type && <p>{formErrors.type}</p>}

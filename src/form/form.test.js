@@ -106,7 +106,7 @@ describe('when the user blurs an empty field', () => {
     // before the event the error message on empty size field should not be in the document
     expect(screen.queryByText(/the size is required/i)).not.toBeInTheDocument()
 
-    //event
+    // event
     fireEvent.blur(screen.getByLabelText(/name/i), {
       target: {name: 'size', value: ''},
     })
